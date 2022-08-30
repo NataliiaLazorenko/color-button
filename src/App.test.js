@@ -30,7 +30,12 @@ test("renders learn react link", () => {
    * - assertion (твердження), causes test to succeed or fail
    */
 
-  const linkElement = screen.getByText("Learn React");
+  /*
+   * getByRole has 2 arguments:
+   * - the role itself ('a' element has a builden role of 'link')
+   * - options(we will use 'name' option to identify what the displayed text should be for this link)
+   */
+  const linkElement = screen.getByRole("link", { name: /learn react/i });
 
   /*
    * expect
