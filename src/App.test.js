@@ -5,29 +5,33 @@ import App, { replaceCamelWithSpaces } from "./App";
 test("Button has correct initial color", () => {
   render(<App />);
 
-  // find an element with a role and text of 'Change to blue'
+  // find an element with a role and text of 'Change to Midnight Blue'
   // getByRole has 2 arguments: the role itself and options
-  const colorButton = screen.getByRole("button", { name: "Change to blue" }); // screen - global object that has access to the virtual DOM, created by render
+  const colorButton = screen.getByRole("button", {
+    name: "Change to Midnight Blue",
+  }); // screen - global object that has access to the virtual DOM, created by render
 
-  // expect the background color to be red
-  expect(colorButton).toHaveStyle({ backgroundColor: "red" }); // expect - Jest global method, starts the assertion
+  // expect the background color to be MediumVioletRed
+  expect(colorButton).toHaveStyle({ backgroundColor: "MediumVioletRed" }); // expect - Jest global method, starts the assertion
 
   // click button
   fireEvent.click(colorButton); // fireEvent - helps to interact the elements in Virtual DOM; click method takes an element
 
-  // expect the background color to be blue
-  expect(colorButton).toHaveStyle({ backgroundColor: "blue" });
+  // expect the background color to be MidnightBlue
+  expect(colorButton).toHaveStyle({ backgroundColor: "MidnightBlue" });
 
   // the specs also specify, that the button should have the correct text after the background color has changed, so we test this too
-  // expect the button text to be "Change to red"
-  expect(colorButton.textContent).toBe("Change to red");
+  // expect the button text to be "Change to Medium Violet Red"
+  expect(colorButton.textContent).toBe("Change to Medium Violet Red");
 });
 
 test("Initial condition", () => {
   render(<App />);
 
   // check that the button starts out enabled
-  const colorButton = screen.getByRole("button", { name: "Change to blue" });
+  const colorButton = screen.getByRole("button", {
+    name: "Change to Midnight Blue",
+  });
   expect(colorButton).toBeEnabled();
 
   // check that the checkbox starts out unchecked
@@ -39,7 +43,9 @@ test("Checkbox disables button on first click and enable on second click", () =>
   render(<App />);
   // we can use the name option on the checkbox to specify which checkbox we want (we can have more than one checkbox on the page)
   const checkbox = screen.getByRole("checkbox", { name: "Disable button" });
-  const colorButton = screen.getByRole("button", { name: "Change to blue" });
+  const colorButton = screen.getByRole("button", {
+    name: "Change to Midnight Blue",
+  });
 
   fireEvent.click(checkbox);
   expect(colorButton).toBeDisabled();
@@ -47,13 +53,15 @@ test("Checkbox disables button on first click and enable on second click", () =>
 
   fireEvent.click(checkbox);
   expect(colorButton).toBeEnabled();
-  expect(colorButton).toHaveStyle({ backgroundColor: "red" });
+  expect(colorButton).toHaveStyle({ backgroundColor: "MediumVioletRed" });
 });
 
-test("Disabled button has grey background and reverts to red", () => {
+test("Disabled button has grey background and reverts to MediumVioletRed", () => {
   render(<App />);
   const checkbox = screen.getByRole("checkbox", { name: "Disable button" });
-  const colorButton = screen.getByRole("button", { name: "Change to blue" });
+  const colorButton = screen.getByRole("button", {
+    name: "Change to Midnight Blue",
+  });
 
   // disable button
   fireEvent.click(checkbox);
@@ -61,15 +69,17 @@ test("Disabled button has grey background and reverts to red", () => {
 
   // re-enable button
   fireEvent.click(checkbox);
-  expect(colorButton).toHaveStyle({ "background-color": "red" });
+  expect(colorButton).toHaveStyle({ "background-color": "MediumVioletRed" });
 });
 
-test("Clicked disabled button has grey background and reverts to blue", () => {
+test("Clicked disabled button has grey background and reverts to MidnightBlue", () => {
   render(<App />);
   const checkbox = screen.getByRole("checkbox", { name: "Disable button" });
-  const colorButton = screen.getByRole("button", { name: "Change to blue" });
+  const colorButton = screen.getByRole("button", {
+    name: "Change to Midnight Blue",
+  });
 
-  // change button to blue
+  // change button to MidnightBlue
   fireEvent.click(colorButton);
 
   // disable button
@@ -78,7 +88,7 @@ test("Clicked disabled button has grey background and reverts to blue", () => {
 
   // re-enable button
   fireEvent.click(checkbox);
-  expect(colorButton).toHaveStyle({ "background-color": "blue" });
+  expect(colorButton).toHaveStyle({ "background-color": "MidnightBlue" });
 });
 
 // we will use a new concept where we will combine the tests in a describe statement. describe statement is a way of grouping tests. describe has two arguments: string description and function
