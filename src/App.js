@@ -1,6 +1,17 @@
 import { useState } from "react";
 import "./App.css";
 
+// this function separates characters - goes from camelcase to spaces (for example, MediumVioletRed -> Medium Violet Red)
+export function replaceCamelWithSpaces(colorName) {
+  /*
+   * /\B([A-Z])\B/g - regular expression. It says:
+   * if you find a capital letter `[A-Z]` in the middle of a word `\B...\B`
+   * and even if you find it multiple times `g`,
+   * do this for every time you find it - replace it with whatever letter you found `$1` preceded by a space (перед яким стоїть пробіл)
+   */
+  return colorName.replace(/\B([A-Z])\B/g, " $1");
+}
+
 function App() {
   const [buttonColor, setButtonColor] = useState("red");
   const [disabled, setDisabled] = useState(false);

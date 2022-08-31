@@ -1,14 +1,16 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import App from "./App";
+import App, { replaceCamelWithSpaces } from "./App";
 
+// test - global method. It has two arguments: string description and test function
 test("Button has correct initial color", () => {
   render(<App />);
 
   // find an element with a role and text of 'Change to blue'
+  // getByRole has 2 arguments: the role itself and options
   const colorButton = screen.getByRole("button", { name: "Change to blue" }); // screen - global object that has access to the virtual DOM, created by render
 
   // expect the background color to be red
-  expect(colorButton).toHaveStyle({ backgroundColor: "red" });
+  expect(colorButton).toHaveStyle({ backgroundColor: "red" }); // expect - Jest global method, starts the assertion
 
   // click button
   fireEvent.click(colorButton); // fireEvent - helps to interact the elements in Virtual DOM; click method takes an element
@@ -77,4 +79,19 @@ test("Clicked disabled button has grey background and reverts to blue", () => {
   // re-enable button
   fireEvent.click(checkbox);
   expect(colorButton).toHaveStyle({ "background-color": "blue" });
+});
+
+// we will use a new concept where we will combine the tests in a describe statement. describe statement is a way of grouping tests. describe has two arguments: string description and function
+// all the tests are going to be about - making spaces before camelcase capital letters
+describe("Spaces before camel-case capital letters", () => {
+  // we put test global inside the function in describe
+  test("Works for no inner capital letters", () => {
+    expect(replaceCamelWithSpaces("Red")).toBe("Red"); // toBe - is a matcher from jest and it just compares two things directly
+  });
+  test("Works for one inner capital letters", () => {
+    expect(replaceCamelWithSpaces("MidnightBlue")).toBe("Midnight Blue");
+  });
+  test("Works for multiple inner capital letters", () => {
+    expect(replaceCamelWithSpaces("MediumVioletRed")).toBe("Medium Violet Red");
+  });
 });
