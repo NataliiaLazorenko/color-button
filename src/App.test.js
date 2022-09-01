@@ -22,7 +22,7 @@ test("Button has correct initial color", () => {
 
   // the specs also specify, that the button should have the correct text after the background color has changed, so we test this too
   // expect the button text to be "Change to Medium Violet Red"
-  expect(colorButton.textContent).toBe("Change to Medium Violet Red");
+  expect(colorButton).toHaveTextContent("Change to Medium Violet Red");
 });
 
 test("Initial condition", () => {
